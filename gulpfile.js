@@ -7,10 +7,11 @@ var gulp       = require('gulp'),
     sass       = require("gulp-sass"),
     sourcemaps = require("gulp-sourcemaps"),
     del        = require("del"),
-    babel      = require('gulp-babel');
+    babel      = require('gulp-babel'),
+    browserify = require('gulp-browserify');
 
 gulp.task("babel", function () {
-  return gulp.src(['js/react.js','js/main.js'])
+  return gulp.src(['js/main.js'])
     .pipe(concat('app.js'))
     .pipe(babel())
     .pipe(uglify())
