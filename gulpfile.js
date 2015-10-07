@@ -37,6 +37,13 @@ gulp.task('minifyScripts',["concatScripts"], function(){
           .pipe(gulp.dest('js'));
 });
 
+gulp.task('minifyBundle', function(){
+  return gulp.src('bundle.js')
+              .pipe(uglify())
+              .pipe(rename('bundle.min.js'))
+              .pipe(gulp.dest('./'));
+});
+
 gulp.task('compileSass', function(){
   return gulp.src('scss/application.scss')
           .pipe(sourcemaps.init())
