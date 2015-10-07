@@ -1,5 +1,379 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-"use strict";var React=require("react"),map,center,service,markers=[],defautSearchRadius="500",mainMarker=[],MapFunctions={randomLocation:function(){MapFunctions.clearMarkers();var e=mainMarker[0].position.H+2*(Math.random()-.5)*.02,a=mainMarker[0].position.L+2*(Math.random()-.5)*.02;MapFunctions.setMapOnAll(null,mainMarker),mainMarker=[];var t={lat:e,lng:a};map.setCenter(t),MapFunctions.addMainMarker(e,a),MapFunctions.getNearbyPlaces(t)},attachWindow:function(e,a){var t=new google.maps.InfoWindow({content:a});e.addListener("rightclick",function(){e.setMap(null),React.render(React.createElement(LeftMainModal,null),document.getElementById("left-target"))}),e.addListener("click",function(){t.open(e.get("map"),e)}),e.addListener("mouseover",function(){MapFunctions.getGoogleDetails(e.placeId)})},deleteMarkers:function(){MapFunctions.clearMarkers(),markers=[]},clearMarkers:function(){MapFunctions.setMapOnAll(null,markers),markers=[]},buildMap:function(e,a){map=new google.maps.Map(document.getElementById("map"),{center:{lat:e,lng:a},zoom:14}),React.render(React.createElement(LeftMainModal,null),document.getElementById("left-target"))},getGoogleDetails:function(e){function a(e,a){if(a==google.maps.places.PlacesServiceStatus.OK){if(void 0===e.formatted_address)var t="Address format unrecognizable at this current state of development...";else var t=e.formatted_address;if(void 0===e.opening_hours||void 0===e.opening_hours.weekday_text)var n="Hours unavailable 😕";else var n=e.opening_hours.weekday_text;React.render(React.createElement(BarHeading,{name:e.name,address:t,website:e.website,reviews:e.reviews,rating:e.rating,hours:n,ratingNum:e.user_ratings_total,key:e.place_id}),document.getElementById("left-target"))}}var t={placeId:e};service=new google.maps.places.PlacesService(map),service.getDetails(t,a)},addMainMarker:function(e,a){var t=new google.maps.Marker({position:{lat:e,lng:a},animation:google.maps.Animation.BOUNCE,map:map,draggable:!0,icon:"http://icons.iconarchive.com/icons/fatcow/farm-fresh/16/cat-icon.png"}),n=new google.maps.InfoWindow({content:"You Are Here"});n.open(map,t),t.addListener("click",function(){n.open(t.get("map"),t)}),t.addListener("drag",function(){MapFunctions.deleteMarkers()}),t.addListener("rightclick",function(){MapFunctions.deleteMarkers(),React.render(React.createElement(LeftMainModal,null),document.getElementById("left-target"))}),t.addListener("dragend",function(){var e={lat:this.position.H,lng:this.position.L};map.setCenter(e),MapFunctions.getNearbyPlaces(e),map.setZoom(14)}),mainMarker.push(t)},setMapOnAll:function(e,a){for(var t=0;t<a.length;t++)a[t].setMap(e)},getUserLocation:function(){function e(e){MapFunctions.buildMap(e.coords.latitude,e.coords.longitude),MapFunctions.addMainMarker(e.coords.latitude,e.coords.longitude),center=new google.maps.LatLng(e.coords.latitude,e.coords.longitude),MapFunctions.getNearbyPlaces(center)}function a(e){alert("Please share location, it's how this site works 😊\nChange location setting and refresh for best results"),MapFunctions.buildMap(44.9778,-93.265),MapFunctions.addMainMarker(44.9778,-93.265),center=new google.maps.LatLng(44.9778,-93.265),MapFunctions.getNearbyPlaces(center),React.render(React.createElement(NoGeoLocation,null),document.getElementById("left-target"))}navigator.geolocation.getCurrentPosition(e,a)},getNearbyPlaces:function(e){var a={location:e,radius:defautSearchRadius,types:["bar"]},t=new google.maps.places.PlacesService(map);t.nearbySearch(a,function(e,a){if(a==google.maps.places.PlacesServiceStatus.OK)for(var t=0;t<e.length;t++){var n=e[t];(void 0===n.name||void 0===n.id)&&t++;var r=new google.maps.Marker({map:map,animation:google.maps.Animation.DROP,position:n.geometry.location,placeId:n.place_id});MapFunctions.attachWindow(r,n.name),markers.push(r)}})}},NoGeoLocation=React.createClass({displayName:"NoGeoLocation",render:function(){return React.createElement("div",null,React.createElement("h2",{className:"center"},"Geolocation failed...I've placed you in Minneapolis, MN"),React.createElement(LeftMainModal,null),";")}}),LeftMainModal=React.createClass({displayName:"LeftMainModal",render:function(){return React.createElement("div",null,React.createElement("h1",{className:"center"},"Hover over an icon for more info"),React.createElement("ul",null,React.createElement("li",null,"Right click on a place to remove it from the map."),React.createElement("li",null,"Right click on the bouncing cat to remove all the icons"),React.createElement("li",null,"You can drag and drop the bouncing cat (if you can catch it) to a new location"),React.createElement("li",null,"Or just have fun and click below, the cat won't move too far at once...")),React.createElement("button",{id:"random-button",onClick:MapFunctions.randomLocation},"Random Cat Placement"))}}),MainBackground=React.createClass({displayName:"MainBackground",componentDidMount:function(){},render:function(){return React.createElement("div",{className:"image-1"},React.createElement("h1",{className:"page-1",id:"#page-1"}),React.createElement("a",{href:"#cool-modal"},React.createElement("button",{className:"page-1"},"Browse")))}}),BarHeading=React.createClass({displayName:"BarHeading",render:function(){if(void 0===this.props.reviews){var e="No reviews availabel 😥";this.props.rating="Can't rate",this.props.ratingNum=0}else var e=this.props.reviews.map(function(e,a){return React.createElement("p",{key:a},e.text)});if("Hours unavailable 😕"===this.props.hours);else var a=this.props.hours.map(function(e,a){return React.createElement("p",{className:"hours",key:a},e)});return React.createElement("div",{className:"bar-detail"},React.createElement("h1",{className:"bar-head"}," ",this.props.name," "),React.createElement("p",null," ",this.props.address," "),React.createElement("p",null,"Average Rating:  ",this.props.rating,"....",this.props.ratingNum," reviews"),React.createElement("p",null," ",a," "),React.createElement("a",{href:this.props.website}," ",this.props.website," "),React.createElement("p",null," ",e," "),React.createElement("hr",null))}}),RightMainModal=React.createClass({displayName:"RightMainModal",componentDidMount:function(){MapFunctions.getUserLocation()},render:function(){return React.createElement("div",{id:"map"})}});React.render(React.createElement(MainBackground,null),document.getElementById("background")),React.render(React.createElement(RightMainModal,null),document.getElementById("right-target"));
+'use strict';
+
+var React = require('react');
+var map;
+var center;
+var service;
+var markers = [];
+var defautSearchRadius = '500';
+var mainMarker = [];
+var MapFunctions = {
+
+  randomLocation: function randomLocation() {
+    MapFunctions.clearMarkers();
+    var lat = mainMarker[0].position.H + 2 * (Math.random() - .5) * .02;
+    var lng = mainMarker[0].position.L + 2 * (Math.random() - .5) * .02;
+    MapFunctions.setMapOnAll(null, mainMarker);
+    mainMarker = [];
+    var newCenter = { lat: lat, lng: lng };
+    map.setCenter(newCenter);
+    MapFunctions.addMainMarker(lat, lng);
+    MapFunctions.getNearbyPlaces(newCenter);
+  },
+
+  attachWindow: function attachWindow(marker, message) {
+    var infowindow = new google.maps.InfoWindow({
+      content: message
+    });
+    marker.addListener('rightclick', function () {
+      marker.setMap(null);
+      React.render(React.createElement(LeftMainModal, null), document.getElementById('left-target'));
+    });
+    marker.addListener('click', function () {
+      infowindow.open(marker.get('map'), marker);
+    });
+    marker.addListener('mouseover', function () {
+      MapFunctions.getGoogleDetails(marker.placeId);
+    });
+  },
+
+  deleteMarkers: function deleteMarkers() {
+    MapFunctions.clearMarkers();
+    markers = [];
+  },
+
+  clearMarkers: function clearMarkers() {
+    MapFunctions.setMapOnAll(null, markers);
+    markers = [];
+  },
+
+  buildMap: function buildMap(lat, lng) {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: lat, lng: lng },
+      zoom: 15
+    });
+    React.render(React.createElement(LeftMainModal, null), document.getElementById('left-target'));
+  },
+
+  getGoogleDetails: function getGoogleDetails(placeId) {
+    var request = { placeId: placeId };
+    service = new google.maps.places.PlacesService(map);
+    service.getDetails(request, callback);
+    function callback(place, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        if (place.formatted_address === undefined) {
+          var address = "Address format unrecognizable at this current state of development...";
+        } else {
+          var address = place.formatted_address;
+        }
+        if (place.opening_hours === undefined || place.opening_hours.weekday_text === undefined) {
+          var hours = "Hours unavailable 😕";
+        } else {
+          var hours = place.opening_hours.weekday_text;
+        }
+
+        React.render(React.createElement(BarHeading, { name: place.name,
+          address: address,
+          website: place.website,
+          reviews: place.reviews,
+          rating: place.rating,
+          hours: hours,
+          ratingNum: place.user_ratings_total,
+          key: place.place_id
+        }), document.getElementById('left-target'));
+      }
+    }
+  },
+
+  addMainMarker: function addMainMarker(lat, lng) {
+    var marker = new google.maps.Marker({
+      position: { lat: lat, lng: lng },
+      animation: google.maps.Animation.BOUNCE,
+      map: map,
+      draggable: true,
+      icon: 'http://icons.iconarchive.com/icons/fatcow/farm-fresh/16/cat-icon.png'
+    });
+    var infowindow = new google.maps.InfoWindow({
+      content: "You Are Here"
+    });
+    infowindow.open(map, marker);
+    marker.addListener('click', function () {
+      infowindow.open(marker.get('map'), marker);
+    });
+    marker.addListener('drag', function () {
+      MapFunctions.deleteMarkers();
+    });
+    marker.addListener('rightclick', function () {
+      MapFunctions.deleteMarkers();
+      React.render(React.createElement(LeftMainModal, null), document.getElementById('left-target'));
+    });
+    marker.addListener('dragend', function () {
+      var newCenter = { lat: this.position.H, lng: this.position.L };
+      map.setCenter(newCenter);
+      MapFunctions.getNearbyPlaces(newCenter);
+      map.setZoom(15);
+    });
+    mainMarker.push(marker);
+  },
+
+  setMapOnAll: function setMapOnAll(map, markers) {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  },
+
+  getUserLocation: function getUserLocation() {
+    // GETS LAT LNG BASED ON BROWSER, CENTERS MAP, THEN GETS NEARBY PLACES
+
+    function success(position) {
+      MapFunctions.buildMap(position.coords.latitude, position.coords.longitude);
+      MapFunctions.addMainMarker(position.coords.latitude, position.coords.longitude);
+      center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      MapFunctions.getNearbyPlaces(center);
+    }
+
+    function failure(message) {
+      alert("Please share location, it's how this site works 😊\nChange location setting and refresh for best results");
+      MapFunctions.buildMap(44.9778, -93.2650);
+      MapFunctions.addMainMarker(44.9778, -93.2650);
+      center = new google.maps.LatLng(44.9778, -93.2650);
+      MapFunctions.getNearbyPlaces(center);
+
+      React.render(React.createElement(NoGeoLocation, null), document.getElementById('left-target'));
+    }
+
+    navigator.geolocation.getCurrentPosition(success, failure);
+  },
+
+  getNearbyPlaces: function getNearbyPlaces(center) {
+    var request = {
+      location: center,
+      radius: defautSearchRadius,
+      types: ['bar']
+    };
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, function (results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          var place = results[i];
+          if (place.name === undefined || place.id === undefined) {
+            i++;
+          }
+          var marker = new google.maps.Marker({
+            map: map,
+            animation: google.maps.Animation.DROP,
+            position: place.geometry.location,
+            placeId: place.place_id
+          });
+          MapFunctions.attachWindow(marker, place.name);
+          markers.push(marker);
+        }
+      }
+    });
+  }
+
+};
+
+var React = require('react');
+
+var NoGeoLocation = React.createClass({
+  displayName: 'NoGeoLocation',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'h2',
+        { className: 'center' },
+        'Geolocation failed...I\'ve placed you in Minneapolis, MN 😘'
+      ),
+      React.createElement(LeftMainModal, null),
+      ';'
+    );
+  }
+});
+
+var LeftMainModal = React.createClass({
+  displayName: 'LeftMainModal',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'h1',
+        { className: 'center' },
+        'Hover over an icon for more info'
+      ),
+      React.createElement(
+        'ul',
+        null,
+        React.createElement(
+          'li',
+          null,
+          'Showing bars within 500 meters of the bouncing cat.'
+        ),
+        React.createElement(
+          'li',
+          null,
+          'Right click on a place to remove it from the map.'
+        ),
+        React.createElement(
+          'li',
+          null,
+          'Right click on the bouncing cat to remove all the icons from the map.'
+        ),
+        React.createElement(
+          'li',
+          null,
+          'You can drag and drop the bouncing cat (if you can catch it) to a new location.'
+        ),
+        React.createElement(
+          'li',
+          null,
+          'Or just have fun and click below, the cat won\'t move too far at once...'
+        )
+      ),
+      React.createElement(
+        'button',
+        { id: 'random-button', onClick: MapFunctions.randomLocation },
+        'Random Cat Placement'
+      )
+    );
+  }
+});
+
+var MainBackground = React.createClass({
+  displayName: 'MainBackground',
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'image-1' },
+      React.createElement(
+        'h1',
+        { className: "main", id: '#page-1' },
+        'Find a Bar'
+      ),
+      React.createElement(
+        'a',
+        { href: '#cssModal' },
+        React.createElement(
+          'button',
+          { className: 'page-1' },
+          'Browse'
+        )
+      )
+    );
+  }
+});
+
+var BarHeading = React.createClass({
+  displayName: 'BarHeading',
+
+  getDefaultProps: function getDefaultProps() {
+    return { rating: 'No ratings' };
+  },
+  render: function render() {
+    if (this.props.reviews === undefined) {
+      var reviewsList = "No reviews availabel 😥";
+      this.props.rating = "No ratings";
+      this.props.ratingNum = 0;
+    } else {
+      var reviewsList = this.props.reviews.map(function (review, i) {
+        return React.createElement(
+          'p',
+          { key: i },
+          review.text
+        );
+      });
+    }
+
+    if (this.props.hours === "Hours unavailable 😕") {
+      var hoursDeatails = "Business hours unavailable 😕";
+    } else {
+      var hoursDetails = this.props.hours.map(function (h, i) {
+        return React.createElement(
+          'p',
+          { className: 'hours', key: i },
+          h
+        );
+      });
+    }
+
+    return React.createElement(
+      'div',
+      { className: 'bar-detail' },
+      React.createElement(
+        'h1',
+        { className: 'bar-head' },
+        ' ',
+        this.props.name,
+        ' '
+      ),
+      React.createElement(
+        'p',
+        null,
+        ' ',
+        this.props.address,
+        ' '
+      ),
+      React.createElement(
+        'p',
+        null,
+        'Average Rating:  ',
+        this.props.rating,
+        ' from ',
+        this.props.ratingNum,
+        ' reviews'
+      ),
+      React.createElement(
+        'p',
+        null,
+        ' ',
+        hoursDetails,
+        ' '
+      ),
+      React.createElement(
+        'a',
+        { href: this.props.website },
+        ' ',
+        this.props.website,
+        ' '
+      ),
+      React.createElement(
+        'h3',
+        null,
+        'Reviews'
+      ),
+      React.createElement(
+        'p',
+        null,
+        ' ',
+        reviewsList,
+        ' '
+      ),
+      React.createElement('hr', null)
+    );
+  }
+});
+
+var RightMainModal = React.createClass({
+  displayName: 'RightMainModal',
+
+  componentDidMount: function componentDidMount() {
+    MapFunctions.getUserLocation();
+  },
+
+  render: function render() {
+    return React.createElement('div', { id: 'map' });
+  }
+});
+
+React.render(React.createElement(MainBackground, null), document.getElementById("background"));
+React.render(React.createElement(RightMainModal, null), document.getElementById('right-target'));
 },{"react":156}],2:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.

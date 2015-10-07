@@ -7,15 +7,14 @@ var gulp       = require('gulp'),
     sass       = require("gulp-sass"),
     sourcemaps = require("gulp-sourcemaps"),
     del        = require("del"),
-    babel      = require('gulp-babel'),
-    browserify = require('gulp-browserify');
+    babel      = require('gulp-babel');
+
+
 
 gulp.task("babel", function () {
-  return gulp.src(['js/main.js'])
+  return gulp.src(['js/mapfunctions.js','js/main.js'])
     .pipe(concat('app.js'))
     .pipe(babel())
-    .pipe(uglify())
-    .pipe(rename('app.min.js'))
     .pipe(gulp.dest("js"));
 });
 

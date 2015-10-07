@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "DanParker",
   "license": "ISC",
   "devDependencies": {
+    "browserify": "^11.2.0",
     "del": "^2.0.2",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.1",
@@ -17,9 +18,21 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.4.1"
+    "gulp-uglify": "^1.4.1",
+    "reactify": "^1.1.1"
   },
   "dependencies": {
     "react": "^0.13.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parkerdan/nodebarfinder.git"
+  },
+  "keywords": [
+    "barfinder"
+  ],
+  "bugs": {
+    "url": "https://github.com/parkerdan/nodebarfinder/issues"
+  },
+  "homepage": "https://github.com/parkerdan/nodebarfinder#readme"
 }
