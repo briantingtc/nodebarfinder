@@ -52,7 +52,7 @@ var MapFunctions = {
   buildMap: function(lat,lng){
     map = new google.maps.Map(document.getElementById('map'),{
       center: {lat: lat, lng: lng},
-      zoom:   14
+      zoom:   15
     });
     React.render(<LeftMainModal />, document.getElementById('left-target'));
 
@@ -115,7 +115,7 @@ var MapFunctions = {
       var newCenter = {lat: this.position.H, lng:this.position.L};
       map.setCenter(newCenter);
       MapFunctions.getNearbyPlaces(newCenter);
-      map.setZoom(14);
+      map.setZoom(15);
     });
     mainMarker.push(marker);
   },

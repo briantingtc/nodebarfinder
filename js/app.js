@@ -50,7 +50,7 @@ var MapFunctions = {
   buildMap: function buildMap(lat, lng) {
     map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: lat, lng: lng },
-      zoom: 14
+      zoom: 15
     });
     React.render(React.createElement(LeftMainModal, null), document.getElementById('left-target'));
   },
@@ -111,7 +111,7 @@ var MapFunctions = {
       var newCenter = { lat: this.position.H, lng: this.position.L };
       map.setCenter(newCenter);
       MapFunctions.getNearbyPlaces(newCenter);
-      map.setZoom(14);
+      map.setZoom(15);
     });
     mainMarker.push(marker);
   },
@@ -186,7 +186,7 @@ var NoGeoLocation = React.createClass({
       React.createElement(
         'h2',
         { className: 'center' },
-        'Geolocation failed...I\'ve placed you in Minneapolis, MN'
+        'Geolocation failed...I\'ve placed you in Minneapolis, MN 😘'
       ),
       React.createElement(LeftMainModal, null),
       ';'
@@ -212,17 +212,22 @@ var LeftMainModal = React.createClass({
         React.createElement(
           'li',
           null,
+          'Showing bars within 500 meters of the bouncing cat.'
+        ),
+        React.createElement(
+          'li',
+          null,
           'Right click on a place to remove it from the map.'
         ),
         React.createElement(
           'li',
           null,
-          'Right click on the bouncing cat to remove all the icons'
+          'Right click on the bouncing cat to remove all the icons from the map.'
         ),
         React.createElement(
           'li',
           null,
-          'You can drag and drop the bouncing cat (if you can catch it) to a new location'
+          'You can drag and drop the bouncing cat (if you can catch it) to a new location.'
         ),
         React.createElement(
           'li',
@@ -242,20 +247,18 @@ var LeftMainModal = React.createClass({
 var MainBackground = React.createClass({
   displayName: 'MainBackground',
 
-  componentDidMount: function componentDidMount() {},
-
   render: function render() {
     return React.createElement(
       'div',
       { className: 'image-1' },
       React.createElement(
         'h1',
-        { className: "page-1", id: '#page-1' },
+        { className: "main", id: '#page-1' },
         'Find a Bar'
       ),
       React.createElement(
         'a',
-        { href: '#cool-modal' },
+        { href: '#cssModal' },
         React.createElement(
           'button',
           { className: 'page-1' },
@@ -269,10 +272,13 @@ var MainBackground = React.createClass({
 var BarHeading = React.createClass({
   displayName: 'BarHeading',
 
+  getDefaultProps: function getDefaultProps() {
+    return { rating: 'No ratings' };
+  },
   render: function render() {
     if (this.props.reviews === undefined) {
       var reviewsList = "No reviews availabel 😥";
-      this.props.rating = "Can't rate";
+      this.props.rating = "No ratings";
       this.props.ratingNum = 0;
     } else {
       var reviewsList = this.props.reviews.map(function (review, i) {
@@ -318,7 +324,7 @@ var BarHeading = React.createClass({
         null,
         'Average Rating:  ',
         this.props.rating,
-        '....',
+        ' from ',
         this.props.ratingNum,
         ' reviews'
       ),
@@ -335,6 +341,11 @@ var BarHeading = React.createClass({
         ' ',
         this.props.website,
         ' '
+      ),
+      React.createElement(
+        'h3',
+        null,
+        'Reviews'
       ),
       React.createElement(
         'p',

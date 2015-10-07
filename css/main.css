@@ -31,7 +31,7 @@ body {
    }
  }
 
- h1.page-1 {
+ h1.main {
    text-align: center;
    font-family:  cursive;
    font-size: 6em;
@@ -114,9 +114,6 @@ body {
    border-radius: 50%;
  }
 
- .close:hover {
-   background: #2e69ff;
- }
 
  .show-map {
    display: block;
@@ -137,9 +134,16 @@ body {
   font-size: 3em;
   font-weight: bold;
   letter-spacing: 5px;
-  font-family: 'Lora', serif;
+  font-family: serif;
   color: #2d2c2c;
   text-shadow: 2px 3px 0px #fff;
+}
+
+h3 {
+  font-family: serif;
+  color: #2d2c2c;
+  text-shadow: 1px 1px 0px #fff;
+  letter-spacing: 1px;
 }
 #random-button {
   font-size: 12px;
@@ -150,14 +154,17 @@ body {
   color: white;
   border-radius: 50%;
   display: table;
-  margin: 200px auto 0 auto;
+  margin: auto;
   letter-spacing: 4px;
 }
 .center {
   text-align: center;
 }
-li {
+ul {
   font-size: 18px;
-  margin: 10px 0;
+  margin: 50px 20px 0 0;
+}
 
+li {
+  margin: 20px;
 }
