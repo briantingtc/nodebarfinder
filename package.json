@@ -4,7 +4,7 @@
   "description": "barfinder",
   "main": "index.html",
   "scripts": {
-    "start": "index.html",
+    "start": "http-server -a localhost -p $PORT",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "DanParker",
