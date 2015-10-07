@@ -11,11 +11,9 @@ var gulp       = require('gulp'),
     browserify = require('gulp-browserify');
 
 gulp.task("babel", function () {
-  return gulp.src(['js/main.js'])
+  return gulp.src(['js/mapfunctions.js','js/main.js'])
     .pipe(concat('app.js'))
     .pipe(babel())
-    .pipe(uglify())
-    .pipe(rename('app.min.js'))
     .pipe(gulp.dest("js"));
 });
 

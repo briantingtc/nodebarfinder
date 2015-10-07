@@ -1,80 +1,61 @@
-
  #map {
    height: inherit;
    width: inherit;
    border-radius: 20px;
  }
 
-
- .navbar {
-   background-color: black;
-   border: none;
-   margin-bottom: 0;
- }
-
- .nav-font {
-   font-size: 20px;
-   font-family: 'Julius Sans One', sans-serif;
-   text-shadow: 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff, 0 0 5px #eb00e1, 0 0 6px #eb00e1, 0 0 7px #eb00e1, 0 0 8px #eb00e1, 0 0 9px #eb00e1;
-   transition: text-shadow 0.3s;
- }
-
- .nav-font:hover {
-   text-shadow: 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff, 0 0 5px #0046fa, 0 0 6px #0046fa, 0 0 7px #0046fa, 0 0 8px #0046fa, 0 0 9px #0046fa;
- }
-
- .fa-glass {
-   text-shadow: 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff, 0 0 5px #eb00e1, 0 0 6px #eb00e1, 0 0 7px #eb00e1, 0 0 8px #eb00e1, 0 0 9px #eb00e1;
-   letter-spacing: 2px;
- }
-
+#left-target{
+  background: rgba(203, 203, 203, 0.86);
+}
+body {
+  margin: 0;
+}
  .image-1 {
    height: 1000px;
    width: 100%;
    position: fixed;
-   /*background: url("drinks-space.jpg") no-repeat center center;*/
+   background: url("img/glass.jpg") no-repeat center center;
    background-size: cover;
  }
 
  @keyframes glow {
    from {
-     color: #eb00e1;
-     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0046fa, 0 0 50px #0046fa, 0 0 60px #0046fa, 0 0 70px #0046fa, 0 0 80px #0046fa;
+     color: #b1b1b1;
+     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px black, 0 0 50px black, 0 0 60px black,  0 0 70px black, 0 0 80px black;
      letter-spacing: 2px;
    }
    to {
-     color: #0046fa;
-     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #eb00e1, 0 0 50px #eb00e1, 0 0 60px #eb00e1, 0 0 70px #eb00e1, 0 0 80px #eb00e1;
+     color: #050404;
+     text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px white, 0 0 50px white, 0 0 60px white, 0 0 70px white, 0 0 80px white;
      letter-spacing: 4px;
    }
  }
 
  h1.page-1 {
    text-align: center;
-   font-family: 'Audiowide', cursive;
+   font-family:  cursive;
    font-size: 6em;
-   color: #eb00e1;
-   text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0046fa, 0 0 50px #0046fa, 0 0 60px #0046fa, 0 0 70px #0046fa, 0 0 80px #0046fa;
+   color: #b1b1b1;
+   text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px black, 0 0 50px black, 0 0 60px black,  0 0 70px black, 0 0 80px black;
    letter-spacing: 2px;
    transition: all 0.5s;
    animation-name: glow;
-   animation-duration: 4s;
+   animation-duration: 5s;
    animation-iteration-count: infinite;
    animation-direction: alternate;
  }
 
  button.page-1 {
-   font-family: 'Playfair Display SC', serif;
+   font-family:  serif;
    font-size: 20px;
    text-align: center;
    height: 80px;
    width: 120px;
-   background-color: #1556ff;
-   color: #eb00e1;
+   background-color: #4b4949;
+   color: #fff;
    border-radius: 50%;
    display: table;
-   margin: 300px auto 0 auto;
-   text-shadow: 0 0 2px #fff, 0 0 3px #fff;
+   margin: -50px auto 0 auto;
    letter-spacing: 4px;
  }
  #close-up {
@@ -125,9 +106,9 @@
    opacity: .8;
    position: relative;
    left: 450px;
-   top: 10px;
-   background: #0046fa;
-   color: #eb00e1;
+   top: 500px;
+   background: black;
+   color: #b1b1b1;
    text-align: center;
    width: 30px;
    border-radius: 50%;
@@ -154,17 +135,19 @@
 .bar-head {
   text-align: center;
   font-size: 3em;
-  font-family: 'Audiowide', cursive;
-  color: #eb00e1;
-  text-shadow: 0 0 3px #0046fa;
+  font-weight: bold;
+  letter-spacing: 5px;
+  font-family: 'Lora', serif;
+  color: #2d2c2c;
+  text-shadow: 2px 3px 0px #fff;
 }
 #random-button {
   font-size: 12px;
   text-align: center;
   height: 80px;
   width: 140px;
-  background-color: #eb00e1;
-  color: black;
+  background-color: #4b4949;
+  color: white;
   border-radius: 50%;
   display: table;
   margin: 200px auto 0 auto;
@@ -175,6 +158,6 @@
 }
 li {
   font-size: 18px;
-  margin: 5px;
+  margin: 10px 0;
 
 }
