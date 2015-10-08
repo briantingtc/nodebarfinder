@@ -13,7 +13,6 @@ var MapFunctions = {
     MapFunctions.clearMarkers();
     var lat = mainMarker[0].position.J + ((2 * (Math.random() - .5)) * .02);
     var lng = mainMarker[0].position.M + ((2 * (Math.random() - .5)) * .02);
-    console.log(mainMarker);
     MapFunctions.setMapOnAll(null, mainMarker);
     mainMarker = [];
     var newCenter = {lat: parseFloat(lat), lng: parseFloat(lng)};
