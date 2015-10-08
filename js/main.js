@@ -39,13 +39,12 @@ var MainBackground = React.createClass({
 
 var BarHeading = React.createClass({
   getDefaultProps: function(){
-    return {rating: 'No ratings'};
+    return {rating: 'No ratings',
+            ratingNum: 0};
   },
   render: function(){
     if (this.props.reviews === undefined) {
       var reviewsList = "No reviews availabel 😥";
-      this.props.rating = "No ratings";
-      this.props.ratingNum = 0;
     } else {
       var reviewsList = this.props.reviews.map(function(review, i){
         return <p key={i}>{review.text}</p>

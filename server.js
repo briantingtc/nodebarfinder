@@ -1,7 +1,10 @@
 'use strict';
 
 var express = require ('express');
+var favicon = require('express-favicon');
 var app = express();
+
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.use(express.static(__dirname ));
 

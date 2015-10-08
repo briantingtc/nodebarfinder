@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "express": "^4.13.3",
+    "express-favicon": "^1.0.1",
     "react": "^0.13.3"
   },
   "repository": {

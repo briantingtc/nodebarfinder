@@ -11,11 +11,12 @@ var MapFunctions = {
 
   randomLocation: function(){
     MapFunctions.clearMarkers();
-    var lat = mainMarker[0].position.H + ((2 * (Math.random() - .5)) * .02);
-    var lng = mainMarker[0].position.L + ((2 * (Math.random() - .5)) * .02);
+    var lat = mainMarker[0].position.J + ((2 * (Math.random() - .5)) * .02);
+    var lng = mainMarker[0].position.M + ((2 * (Math.random() - .5)) * .02);
+    console.log(mainMarker);
     MapFunctions.setMapOnAll(null, mainMarker);
     mainMarker = [];
-    var newCenter = {lat: lat, lng: lng};
+    var newCenter = {lat: parseFloat(lat), lng: parseFloat(lng)};
     map.setCenter(newCenter);
     MapFunctions.addMainMarker(lat, lng);
     MapFunctions.getNearbyPlaces(newCenter);
@@ -90,12 +91,13 @@ var MapFunctions = {
   },
 
   addMainMarker: function(lat, lng){
+    var icon = "/cat-icon.png";
     var marker = new google.maps.Marker({
       position:  {lat: lat, lng: lng},
       animation: google.maps.Animation.BOUNCE,
       map:       map,
       draggable: true,
-      icon: 'http://icons.iconarchive.com/icons/fatcow/farm-fresh/16/cat-icon.png'
+      icon: icon
     });
      var infowindow = new google.maps.InfoWindow({
       content: "You Are Here"
@@ -112,7 +114,7 @@ var MapFunctions = {
       React.render(<LeftMainModal />, document.getElementById('left-target'));
     });
     marker.addListener('dragend', function() {
-      var newCenter = {lat: this.position.H, lng:this.position.L};
+      var newCenter = {lat: this.position.J, lng:this.position.M};
       map.setCenter(newCenter);
       MapFunctions.getNearbyPlaces(newCenter);
       map.setZoom(15);
