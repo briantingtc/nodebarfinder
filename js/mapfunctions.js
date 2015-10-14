@@ -8,11 +8,10 @@ var defautSearchRadius = '500';
 var mainMarker = [];
 var MapFunctions = {
 
-
   randomLocation: function(){
     MapFunctions.clearMarkers();
-    var lat = mainMarker[0].position.J + ((2 * (Math.random() - .5)) * .02);
-    var lng = mainMarker[0].position.M + ((2 * (Math.random() - .5)) * .02);
+    var lat = mainMarker[0].position.lat() + ((2 * (Math.random() - .5)) * .02);
+    var lng = mainMarker[0].position.lng() + ((2 * (Math.random() - .5)) * .02);
     MapFunctions.setMapOnAll(null, mainMarker);
     mainMarker = [];
     var newCenter = {lat: parseFloat(lat), lng: parseFloat(lng)};
@@ -113,7 +112,7 @@ var MapFunctions = {
       React.render(<LeftMainModal />, document.getElementById('left-target'));
     });
     marker.addListener('dragend', function() {
-      var newCenter = {lat: this.position.J, lng:this.position.M};
+      var newCenter = {lat: marker.position.lat(), lng: marker.position.lng()};
       map.setCenter(newCenter);
       MapFunctions.getNearbyPlaces(newCenter);
       map.setZoom(15);
